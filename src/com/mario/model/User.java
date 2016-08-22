@@ -27,75 +27,70 @@ public class User {
 		gems += number;
 	}
 
-	public void explore() {
+	public boolean explore() {
 		map.print();
-		System.out.println(
-				"Let's Go.\nWhich direction do you want to move?\n" + "NORTH(N/n) , EAST(E/e),WEST(W/w),SOUTH(S/s)\n" + "Type Quit/Q/q to exit");
 		Scanner scan = new Scanner(System.in);
-		while (true) {
-			String cmd = scan.nextLine();
-			if (cmd.equalsIgnoreCase("QUIT") || cmd.equalsIgnoreCase("Q")) {
-				this.save();
-				break;
-			} else {
-				switch (cmd.toUpperCase()) {
-					case "NORTH":
-					case "N":
-						moveNorth();
-						break;
-					case "SOUTH":
-					case "S":
-						moveSouth();
-						break;
-					case "WEST":
-					case "W":
-						moveWest();
-						break;
-					case "EAST":
-					case "E":
-						moveEast();
-						break;
-					default:
-						displayError();
-				}
+		String cmd = scan.nextLine();
+		if (cmd.equalsIgnoreCase("QUIT") || cmd.equalsIgnoreCase("Q")) {
+			return true;
+		} else {
+			switch (cmd.toUpperCase()) {
+				case "NORTH":
+				case "N":
+					moveNorth();
+					break;
+				case "SOUTH":
+				case "S":
+					moveSouth();
+					break;
+				case "WEST":
+				case "W":
+					moveWest();
+					break;
+				case "EAST":
+				case "E":
+					moveEast();
+					break;
+				default:
+					displayError();
 			}
-			map.print();
-			System.out.flush();
 		}
-		scan.close();
+
+		System.out.flush();
+		return false;
 	}
 
 	private void moveNorth() {
-		if(map.getCurrentRoomX()==0){
+		if (map.getCurrentRoomX() == 0) {
 			hitWallMessage();
-		}else{
+		} else {
 			map.IncOrDecCurrentRoomX(-1);
 		}
-		
+
 	}
 
 	private void moveSouth() {
-		if(map.getCurrentRoomX()==Constants.rows-1){
+		if (map.getCurrentRoomX() == Constants.rows - 1) {
 			hitWallMessage();
-		}else{
+		} else {
 			map.IncOrDecCurrentRoomX(1);
 		}
-		
+
 	}
 
 	private void moveWest() {
-		if(map.getCurrentRoomY()==0){
+		if (map.getCurrentRoomY() == 0) {
 			hitWallMessage();
-		}else{
+		} else {
 			map.IncOrDecCurrentRoomY(-1);
 		}
-		
+
 	}
 
 	private void moveEast() {
-		if(map.getCurrentRoomY()==Constants.columns-1){
+		if (map.getCurrentRoomY() == Constants.columns - 1) {
 			hitWallMessage();
-		}else{
+		} else {
 			map.IncOrDecCurrentRoomY(1);
 		}
 	}
@@ -138,10 +133,5 @@ public class User {
 
 	public Integer getHealth() {
 		return health;
-	}
-
-	void save() {
-		
-		System.out.println("GoodBye!Your game is saved");
 	}
 }

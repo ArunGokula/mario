@@ -63,6 +63,7 @@ public class UserManageCLI implements UserManagement {
 	@Override
 	public void saveUser(User player) {
 		userdao.updateUser(player);
+		System.out.println("Goodbye! Your game is saved");
 	}
 
 }

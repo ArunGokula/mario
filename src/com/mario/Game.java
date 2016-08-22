@@ -1,5 +1,7 @@
 package com.mario;
 
+import com.mario.core.MarioGameRules;
+import com.mario.model.GameRules;
 import com.mario.model.User;
 import com.mario.service.UserManagement;
 import com.mario.service.impl.UserManageCLI;
@@ -9,13 +11,18 @@ public class Game {
 
 	public static void main(String[] args) {
 		DBConnection db = new DBConnection();
-
+		GameRules gameRules = new MarioGameRules();
 		try {
 			UserManagement usermanager = new UserManageCLI(db);
 
 			printStory();
 			User player = usermanager.selectUser();
-			player.explore();
+			boolean gotResult = false;
+			printInstructions();
+			while (!gotResult) {
+				gotResult = player.explore();
+				gotResult = gameRules.apply(player);
+			}
 			usermanager.saveUser(player);
 		} finally {
 			db.closeConnection();
@@ -27,7 +34,14 @@ public class Game {
 				+ "There are so many rooms in this palace.\nThere is a princess locked up in one of those rooms.\n"
 				+ "Navigate to princess with N,E,W,S keys  ");
 		System.out.println("\n--------------------------------------\n");
+		
 		System.out.flush();
+	}
+	
+	private static void printInstructions(){
+		System.out.println(
+				"Let's Go.\nWhich direction do you want to move?\n" + "NORTH(N/n) , EAST(E/e),WEST(W/w),SOUTH(S/s)\n" + "Type Quit/Q/q to exit");
+		
 	}
 
 }
