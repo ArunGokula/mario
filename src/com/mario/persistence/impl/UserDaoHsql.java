@@ -70,4 +70,24 @@ public class UserDaoHsql implements UserDao {
 
 	}
 
+	@Override
+	public void updateUser(User player) {
+		String sql = "update users set gems=?,health=?,map=? where name=?";
+		try {
+			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, player.getGems());
+			pstmt.setInt(2, player.getHealth());
+			pstmt.setString(4, player.getName());
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(player.getMap());
+			pstmt.setBinaryStream(3, new ByteArrayInputStream(baos.toByteArray()));
+			pstmt.executeUpdate();
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

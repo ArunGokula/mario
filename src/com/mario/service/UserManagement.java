@@ -8,4 +8,5 @@ public interface UserManagement {
 
 	public User selectUser();
 	public User addUser();
+	public void saveUser(User player);
 }

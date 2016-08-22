@@ -16,6 +16,7 @@ public class Game {
 			printStory();
 			User player = usermanager.selectUser();
 			player.explore();
+			usermanager.saveUser(player);
 		} finally {
 			db.closeConnection();
 		}

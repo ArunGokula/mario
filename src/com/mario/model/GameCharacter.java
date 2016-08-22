@@ -1,6 +1,6 @@
 package com.mario.model;
 
-public enum Direction {
+public enum GameCharacter {
 
-	NORTH,EAST,WEST,SOUTH
+	MONSTER,PRINCESS,YOU
 }
