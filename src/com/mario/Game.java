@@ -20,7 +20,9 @@ public class Game {
 			boolean gotResult = false;
 			printInstructions();
 			while (!gotResult) {
-				gotResult = player.explore();
+				if(player.explore()){
+					break;
+				}
 				gotResult = gameRules.apply(player);
 			}
 			usermanager.saveUser(player);
