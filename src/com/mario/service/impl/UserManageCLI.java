@@ -8,13 +8,13 @@ import com.mario.model.User;
 import com.mario.persistence.UserDao;
 import com.mario.persistence.impl.UserDaoHsql;
 import com.mario.service.UserManagement;
-import com.mario.utils.DBConnection;
+import com.mario.utils.HSQLDBConnection;
 
 public class UserManageCLI implements UserManagement {
 
 	UserDao userdao;
 
-	public UserManageCLI(DBConnection db) {
+	public UserManageCLI(HSQLDBConnection db) {
 		userdao = new UserDaoHsql(db);
 	}
 

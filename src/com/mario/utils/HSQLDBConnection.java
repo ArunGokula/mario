@@ -12,12 +12,12 @@ import java.sql.SQLException;
 
 import org.hsqldb.Server;
 
-public class DBConnection {
+public class HSQLDBConnection {
 	Server hsqlServer = null;
 	Connection connection = null;
 	ResultSet rs = null;
 	
-	public DBConnection() {
+	public HSQLDBConnection() {
 		
 	}
 	
@@ -37,7 +37,7 @@ public class DBConnection {
 				connection.prepareStatement("create table if not exists users (id integer, name varchar(20) not null,gems integer,health integer,map BLOB);").execute();
 				DatabaseMetaData dbm = connection.getMetaData();
 
-				ResultSet tables = dbm.getTables(null, null, "riddles", null);
+				ResultSet tables = dbm.getTables(null, null, "riddles".toUpperCase(), null);
 				if (!tables.next()) {
 					String riddlesql = "create table riddles (difficulty integer,question varchar(500),answer varchar(100));";
 					connection.createStatement().execute(riddlesql);

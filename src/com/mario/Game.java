@@ -5,12 +5,12 @@ import com.mario.model.GameRules;
 import com.mario.model.User;
 import com.mario.service.UserManagement;
 import com.mario.service.impl.UserManageCLI;
-import com.mario.utils.DBConnection;
+import com.mario.utils.HSQLDBConnection;
 
 public class Game {
 
 	public static void main(String[] args) {
-		DBConnection db = new DBConnection();
+		HSQLDBConnection db = new HSQLDBConnection();
 		GameRules gameRules = new MarioGameRules();
 		try {
 			UserManagement usermanager = new UserManageCLI(db);

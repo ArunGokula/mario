@@ -14,12 +14,12 @@ import java.util.List;
 import com.mario.model.Palace;
 import com.mario.model.User;
 import com.mario.persistence.UserDao;
-import com.mario.utils.DBConnection;
+import com.mario.utils.HSQLDBConnection;
 
 public class UserDaoHsql implements UserDao {
-	DBConnection db;
+	HSQLDBConnection db;
 
-	public UserDaoHsql(DBConnection db) {
+	public UserDaoHsql(HSQLDBConnection db) {
 		this.db = db;
 	}
 
