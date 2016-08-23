@@ -26,8 +26,9 @@ public class User {
 	}
 
 	public void modifyHealth(int delta) {
-		if(health>0 && health<=100)
 		health += delta;
+		if(health<0)
+			health=0;
 	}
 
 	public void modifyGems(int number) {

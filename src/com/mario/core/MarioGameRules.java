@@ -36,6 +36,10 @@ public class MarioGameRules implements GameRules {
 					double healthLost = fightMonster();
 					player.modifyHealth((int) healthLost);
 					player.IncLevel();
+					if(player.getHealth()==0){
+						System.out.println("You died.You lost the game");
+						return true;
+					}
 					break;
 				} else if (userAnswer.equalsIgnoreCase("#pay")) {
 					if (player.getGems() == 0) {
