@@ -12,18 +12,21 @@ public class User {
 	Integer gems;
 	Integer health;
 
-	public User(String name, int gems, int health, Palace palace) {
+	public User(String name, int level,int gems, int health, Palace palace) {
 		this.name = name;
+		this.level=level;
 		this.gems = gems;
 		this.health = health;
 		this.map = palace;
 	}
 
 	public void modifyHealth(int delta) {
+		if(health>0 && health<=100)
 		health += delta;
 	}
 
 	public void modifyGems(int number) {
+		if(gems>0)
 		gems += number;
 	}
 
@@ -123,8 +126,8 @@ public class User {
 		return level;
 	}
 
-	public void setLevel(Integer level) {
-		this.level = level;
+	public void IncLevel() {
+		this.level++;
 	}
 
 	public Integer getGems() {
@@ -134,4 +137,5 @@ public class User {
 	public Integer getHealth() {
 		return health;
 	}
+
 }

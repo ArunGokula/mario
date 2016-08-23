@@ -7,7 +7,6 @@ public class Palace extends GeoMap {
 	Room[][] rooms = new Room[Constants.rows][Constants.columns];
 	Integer currentRoomX;
 	Integer currentRoomY;
-	GameRules gameplay;
 
 	public Palace() {
 		currentRoomX = (int) (Math.random() * 10);
@@ -21,14 +20,13 @@ public class Palace extends GeoMap {
 		for (int i = 0; i < monsters; i++) {
 			rooms[(int) (Math.random() * 10)][(int) (Math.random() * 10)].setOccupiedBy(GameCharacter.MONSTER);
 		}
-		rooms[currentRoomX][currentRoomY].setOccupiedBy(GameCharacter.YOU);
 		int princessX = (int) (Math.random() * 10);
 		int princessY = (int) (Math.random() * 10);
 		if (princessX == currentRoomX && princessY == currentRoomY) {
 			princessX = (int) (Math.random() * 10);
 			princessY = (int) (Math.random() * 10);
 		}
-		rooms[princessX][princessY].setOccupiedBy(GameCharacter.YOU);
+		rooms[princessX][princessY].setOccupiedBy(GameCharacter.PRINCESS);
 	}
 
 	@Override
@@ -43,6 +41,7 @@ public class Palace extends GeoMap {
 				String roomString = "|_ _|";
 				if (i == currentRoomX && j == currentRoomY) {
 					roomString = "|_U_|";
+					rooms[i][j].setOccupiedBy(null);
 				}
 				System.out.print(roomString);
 			}

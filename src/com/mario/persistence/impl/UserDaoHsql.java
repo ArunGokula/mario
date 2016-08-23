@@ -42,7 +42,7 @@ public class UserDaoHsql implements UserDao {
 					e.printStackTrace();
 				}
 
-				usersfromDB.add(new User(resultSet.getString("name"), resultSet.getInt("gems"), resultSet.getInt("health"), chartData));
+				usersfromDB.add(new User(resultSet.getString("name"), resultSet.getInt("level"),resultSet.getInt("gems"), resultSet.getInt("health"), chartData));
 			}
 			return usersfromDB;
 		} catch (SQLException e) {
@@ -53,16 +53,17 @@ public class UserDaoHsql implements UserDao {
 
 	@Override
 	public void persistUser(User toSave) {
-		String sql = "insert into users(name,gems,health,map) values(?,?,?,?)";
+		String sql = "insert into users(name,level,gems,health,map) values(?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
 			pstmt.setString(1, toSave.getName());
 			pstmt.setInt(2, toSave.getGems());
-			pstmt.setInt(3, toSave.getHealth());
+			pstmt.setInt(3, toSave.getLevel());
+			pstmt.setInt(4, toSave.getHealth());
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 			oos.writeObject(toSave.getMap());
-			pstmt.setBinaryStream(4, new ByteArrayInputStream(baos.toByteArray()));
+			pstmt.setBinaryStream(5, new ByteArrayInputStream(baos.toByteArray()));
 			pstmt.executeUpdate();
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -72,12 +73,13 @@ public class UserDaoHsql implements UserDao {
 
 	@Override
 	public void updateUser(User player) {
-		String sql = "update users set gems=?,health=?,map=? where name=?";
+		String sql = "update users set gems=?,health=?,map=?,level=? where name=?";
 		try {
 			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
 			pstmt.setInt(1, player.getGems());
 			pstmt.setInt(2, player.getHealth());
-			pstmt.setString(4, player.getName());
+			pstmt.setInt(4, player.getLevel());
+			pstmt.setString(5, player.getName());
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);

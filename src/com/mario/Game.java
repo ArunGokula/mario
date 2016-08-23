@@ -1,7 +1,7 @@
 package com.mario;
 
+import com.mario.core.GameRules;
 import com.mario.core.MarioGameRules;
-import com.mario.model.GameRules;
 import com.mario.model.User;
 import com.mario.service.UserManagement;
 import com.mario.service.impl.UserManageCLI;
@@ -11,7 +11,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		HSQLDBConnection db = new HSQLDBConnection();
-		GameRules gameRules = new MarioGameRules();
+		GameRules gameRules = new MarioGameRules(db);
 		try {
 			UserManagement usermanager = new UserManageCLI(db);
 
@@ -33,8 +33,10 @@ public class Game {
 
 	private static void printStory() {
 		System.out.println("You are going to enter a palace.\n"
-				+ "There are so many rooms in this palace.\nThere is a princess locked up in one of those rooms.\n"
-				+ "Navigate to princess with N,E,W,S keys  ");
+				+ "There are so many rooms in this palace.\n"
+				+ "There is a princess locked up in one of those rooms, surrounded by monsters\n"
+				+ "Navigate to princess with N,E,W,S keys  \n"
+				+ "Answer riddles asked by monster to pass each monster");
 		System.out.println("\n--------------------------------------\n");
 		
 		System.out.flush();

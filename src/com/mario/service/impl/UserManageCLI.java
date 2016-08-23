@@ -55,7 +55,7 @@ public class UserManageCLI implements UserManagement {
 		System.out.println("Let's get introduced");
 		System.out.println("What should I call you?");
 		String name = scan.nextLine();
-		User selectedUser = new User(name, 0, 100, new Palace());
+		User selectedUser = new User(name, 1,0, 100, new Palace());
 		userdao.persistUser(selectedUser);
 		return selectedUser;
 	}

@@ -34,7 +34,7 @@ public class HSQLDBConnection {
 			try {
 				Class.forName("org.hsqldb.jdbcDriver");
 				connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/mario", "sa", "");
-				connection.prepareStatement("create table if not exists users (id integer, name varchar(20) not null,gems integer,health integer,map BLOB);").execute();
+				connection.prepareStatement("create table if not exists users (id integer, name varchar(20) not null,level integer,gems integer,health integer,map BLOB);").execute();
 				DatabaseMetaData dbm = connection.getMetaData();
 
 				ResultSet tables = dbm.getTables(null, null, "riddles".toUpperCase(), null);
