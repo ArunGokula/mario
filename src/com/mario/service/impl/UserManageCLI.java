@@ -25,6 +25,7 @@ public class UserManageCLI implements UserManagement {
 			System.out.println(++i + ")   " + user.getName() + "\t" + user.getGems() + "\t" + user.getHealth());
 		}
 		System.out.println(++i+ ")   create New user");
+		System.out.println(++i+ ")   Delete user");
 		System.out.flush();
 	}
 
@@ -44,9 +45,22 @@ public class UserManageCLI implements UserManagement {
 			int selected = scan.nextInt();
 			if (selected > 0 && selected <= users.size()) {
 				return users.get(selected - 1);
+			}else if(selected==users.size()+1){
+				deleteUser();
+				return selectUser();
+			}else{
+				System.out.println("Invalid option.Try again");
+				return selectUser();
 			}
 		}
 		return addUser();
+	}
+
+	private void deleteUser() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("To confirm deletion type the name of user.To cancel enter #cancel");
+		String name = scan.nextLine();
+		userdao.deleteUser(name);
 	}
 
 	@Override

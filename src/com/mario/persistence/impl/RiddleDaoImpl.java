@@ -55,10 +55,11 @@ public class RiddleDaoImpl implements RiddleDao {
 		String answer = getAnswer(level);
 		StringBuilder hint = new StringBuilder();
 		for (int i = 0; i < answer.length(); i++) {
-			if (Math.random() * 100 > 70) {
-				hint.append('_');
+			int seed = i+answer.length();
+			if ((((int)Math.random()*100)+seed)%2==0) {
+				hint.append(answer.charAt(i)+" ");
 			} else {
-				hint.append(answer.charAt(i));
+				hint.append("_ ");
 			}
 		}
 		return hint.toString();

@@ -1,6 +1,6 @@
 insert into riddles values(1, 'I get wet when drying. I get dirty when wiping. What am I?','Towel');
 insert into riddles values(2, 'I can be cracked, made, told, and played. What am I?','Joke');
-insert into riddles values(3, 'I wiggled and cannot see, sometimes underground and sometimes on a tree. I really don’t want to be on a hook, and I become a person when combined with a book?','Worm);');
+insert into riddles values(3, 'I wiggled and cannot see, sometimes underground and sometimes on a tree. I really donot want to be on a hook, and I become a person when combined with a book?','Worm');
 insert into riddles values(4, 'I like to twirl my body but keep my head up high. After I go in, everything becomes tight. What am I?','Screw');
 insert into riddles values(5, 'I am gentle enough to soothe your skin, light enough to fly in the sky, strong enough to crack rocks. What am I?','Water');
 insert into riddles values(6, 'I can fly but have no wings. I can cry but I have no eyes. Wherever I go, darkness follows me. What am I?','Cloud');

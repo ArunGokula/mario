@@ -1,9 +1,10 @@
 package com.mario.utils;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -58,7 +59,7 @@ public class HSQLDBConnection {
 	}
 	
 	private void runSqlFile() throws FileNotFoundException, IOException, SQLException {
-		try (BufferedReader br = new BufferedReader(new FileReader("riddles.sql"))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("riddles.sql"), "UTF8"))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
 		    	connection.createStatement().execute(line);

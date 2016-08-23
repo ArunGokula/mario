@@ -19,7 +19,7 @@ public class MarioGameRules implements GameRules {
 	@Override
 	public boolean apply(User player) {
 		if (player.getMap().getCurrentRoom().getOccupiedBy() == GameCharacter.PRINCESS) {
-			System.out.println("You won!!");
+			System.out.println("Princess is in this room.You won!!");
 			return true;
 		} else if (player.getMap().getCurrentRoom().getOccupiedBy() == GameCharacter.MONSTER) {
 			System.out.println("There is monster in this room");
@@ -28,7 +28,7 @@ public class MarioGameRules implements GameRules {
 			System.out.println(riddlesDao.getRiddle(player.getLevel()));
 			String userAnswer = "";
 			do {
-				System.out.print("\nType your Answer:");
+				System.out.print("\nType your Answer/Command:");
 				System.out.flush();
 				Scanner scan = new Scanner(System.in);
 				userAnswer = scan.nextLine();
@@ -53,14 +53,14 @@ public class MarioGameRules implements GameRules {
 					System.out.println("Wrong Answer! Try again");
 				}
 			} while (true);
-			System.out.println(player.getName() + "'s Health : " + player.getHealth() + " Gems: " + player.getGems());
+			System.out.println(player);
 		}
 		return false;
 	}
 
 	private double fightMonster() {
 		System.out.println("Fighting Monster...");
-		return Math.random() * -25;
+		return Math.random() * 25 - 40;
 	}
 
 	public void printHelp() {

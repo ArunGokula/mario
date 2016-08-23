@@ -12,6 +12,11 @@ public class User {
 	Integer gems;
 	Integer health;
 
+	@Override
+	public String toString() {
+		return this.getName() + "'s Health : " + this.getHealth() + " Gems: " + this.getGems();
+	}
+	
 	public User(String name, int level,int gems, int health, Palace palace) {
 		this.name = name;
 		this.level=level;
@@ -26,7 +31,6 @@ public class User {
 	}
 
 	public void modifyGems(int number) {
-		if(gems>0)
 		gems += number;
 	}
 

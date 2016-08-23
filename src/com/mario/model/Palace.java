@@ -11,7 +11,7 @@ public class Palace extends GeoMap {
 	public Palace() {
 		currentRoomX = (int) (Math.random() * 10);
 		currentRoomY = (int) (Math.random() * 10);
-		int monsters = (int) (Math.random() * 10 + 1);
+		int monsters = (int) (Math.random() * 20 + 10);
 		for (int i = 0; i < rooms.length; i++) {
 			for (int j = 0; j < rooms[i].length; j++) {
 				rooms[i][j] = new Room();
@@ -27,6 +27,9 @@ public class Palace extends GeoMap {
 			princessY = (int) (Math.random() * 10);
 		}
 		rooms[princessX][princessY].setOccupiedBy(GameCharacter.PRINCESS);
+		//at least two monsters are very near to princess
+		rooms[princessX][princessY==0?princessY+1:princessY-1].setOccupiedBy(GameCharacter.MONSTER);
+		rooms[princessX==0?princessX+1:princessX-1][princessY].setOccupiedBy(GameCharacter.MONSTER);
 	}
 
 	@Override

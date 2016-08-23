@@ -89,7 +89,18 @@ public class UserDaoHsql implements UserDao {
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	@Override
+	public void deleteUser(String player) {
+		String sql = "delete from users where name=?";
+		try {
+			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
+			pstmt.setString(1, player);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

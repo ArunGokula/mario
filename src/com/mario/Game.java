@@ -2,6 +2,7 @@ package com.mario;
 
 import com.mario.core.GameRules;
 import com.mario.core.MarioGameRules;
+import com.mario.model.Palace;
 import com.mario.model.User;
 import com.mario.service.UserManagement;
 import com.mario.service.impl.UserManageCLI;
@@ -18,12 +19,16 @@ public class Game {
 			printStory();
 			User player = usermanager.selectUser();
 			boolean gotResult = false;
-			printInstructions();
+			System.out.println("Let's go!!");
 			while (!gotResult) {
+				printInstructions();
 				if(player.explore()){
 					break;
 				}
 				gotResult = gameRules.apply(player);
+			}
+			if(gotResult){
+				player.setMap(new Palace());
 			}
 			usermanager.saveUser(player);
 		} finally {
@@ -44,7 +49,7 @@ public class Game {
 	
 	private static void printInstructions(){
 		System.out.println(
-				"Let's Go.\nWhich direction do you want to move?\n" + "NORTH(N/n) , EAST(E/e),WEST(W/w),SOUTH(S/s)\n" + "Type Quit/Q/q to exit");
+				"\nWhich direction do you want to move?\n" + "NORTH(N/n) , EAST(E/e),WEST(W/w),SOUTH(S/s)\n" + "Type Quit/Q/q to exit");
 		
 	}
 
