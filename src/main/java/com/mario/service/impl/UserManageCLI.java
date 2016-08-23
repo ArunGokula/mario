@@ -59,7 +59,7 @@ public class UserManageCLI implements UserManagement {
 
 	private void deleteUser() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("To confirm deletion type the name of user.To cancel enter #cancel");
+		System.out.println("To confirm deletion - enter the name of user.To cancel - enter #cancel");
 		String name = scan.nextLine();
 		userdao.deleteUser(name);
 	}

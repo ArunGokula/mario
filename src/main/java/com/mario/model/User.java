@@ -27,6 +27,13 @@ public class User {
 
 
 
+	public User(String name) {
+		this.name = name;
+		this.level = 1;
+		this.gems = 0;
+		this.health=100;
+	}
+
 	public boolean explore() {
 		map.print();
 		Scanner scan = new Scanner(System.in);
