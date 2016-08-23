@@ -25,15 +25,7 @@ public class User {
 		this.map = palace;
 	}
 
-	public void modifyHealth(int delta) {
-		health += delta;
-		if(health<0)
-			health=0;
-	}
 
-	public void modifyGems(int number) {
-		gems += number;
-	}
 
 	public boolean explore() {
 		map.print();
@@ -110,13 +102,19 @@ public class User {
 	private void displayError() {
 		System.err.println("Invalid input.Only N/E/W/S/Q are allowed");
 	}
+	
+	public void modifyHealth(int delta) {
+		health += delta;
+		if(health<0)
+			health=0;
+	}
+
+	public void modifyGems(int number) {
+		gems += number;
+	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Palace getMap() {

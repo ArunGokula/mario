@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,20 +15,19 @@ import java.util.List;
 import com.mario.model.Palace;
 import com.mario.model.User;
 import com.mario.persistence.UserDao;
-import com.mario.utils.HSQLDBConnection;
 
 public class UserDaoHsql implements UserDao {
-	HSQLDBConnection db;
+	Connection dbConnection;
 
-	public UserDaoHsql(HSQLDBConnection db) {
-		this.db = db;
+	public UserDaoHsql(Connection db) {
+		this.dbConnection = db;
 	}
 
 	public List<User> getUsers() {
 		String sql = "Select * from users";
 		try {
 
-			ResultSet resultSet = db.getConnection().createStatement().executeQuery(sql);
+			ResultSet resultSet = dbConnection.createStatement().executeQuery(sql);
 			List<User> usersfromDB = new ArrayList<>();
 			while (resultSet.next()) {
 
@@ -55,7 +55,7 @@ public class UserDaoHsql implements UserDao {
 	public void persistUser(User toSave) {
 		String sql = "insert into users(name,level,gems,health,map) values(?,?,?,?,?)";
 		try {
-			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setString(1, toSave.getName());
 			pstmt.setInt(2, toSave.getGems());
 			pstmt.setInt(3, toSave.getLevel());
@@ -75,7 +75,7 @@ public class UserDaoHsql implements UserDao {
 	public void updateUser(User player) {
 		String sql = "update users set gems=?,health=?,map=?,level=? where name=?";
 		try {
-			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, player.getGems());
 			pstmt.setInt(2, player.getHealth());
 			pstmt.setInt(4, player.getLevel());
@@ -95,7 +95,7 @@ public class UserDaoHsql implements UserDao {
 	public void deleteUser(String player) {
 		String sql = "delete from users where name=?";
 		try {
-			PreparedStatement pstmt = db.getConnection().prepareStatement(sql);
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setString(1, player);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

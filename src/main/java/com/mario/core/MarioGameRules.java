@@ -1,18 +1,18 @@
 package com.mario.core;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
 import com.mario.model.GameCharacter;
 import com.mario.model.User;
 import com.mario.persistence.RiddleDao;
 import com.mario.persistence.impl.RiddleDaoImpl;
-import com.mario.utils.HSQLDBConnection;
 
 public class MarioGameRules implements GameRules {
 
 	RiddleDao riddlesDao;
 
-	public MarioGameRules(HSQLDBConnection db) {
+	public MarioGameRules(Connection db) {
 		riddlesDao = new RiddleDaoImpl(db);
 	}
 

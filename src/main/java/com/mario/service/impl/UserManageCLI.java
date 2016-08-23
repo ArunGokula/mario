@@ -1,5 +1,6 @@
 package com.mario.service.impl;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,13 +9,12 @@ import com.mario.model.User;
 import com.mario.persistence.UserDao;
 import com.mario.persistence.impl.UserDaoHsql;
 import com.mario.service.UserManagement;
-import com.mario.utils.HSQLDBConnection;
 
 public class UserManageCLI implements UserManagement {
 
 	UserDao userdao;
 
-	public UserManageCLI(HSQLDBConnection db) {
+	public UserManageCLI(Connection db) {
 		userdao = new UserDaoHsql(db);
 	}
 
@@ -25,7 +25,7 @@ public class UserManageCLI implements UserManagement {
 			System.out.println(++i + ")   " + user.getName() + "\t" + user.getGems() + "\t" + user.getHealth());
 		}
 		System.out.println(++i+ ")   create New user");
-		System.out.println(++i+ ")   Delete user");
+		System.out.println(++i+ ")   Delete A user");
 		System.out.flush();
 	}
 
@@ -45,12 +45,13 @@ public class UserManageCLI implements UserManagement {
 			int selected = scan.nextInt();
 			if (selected > 0 && selected <= users.size()) {
 				return users.get(selected - 1);
-			}else if(selected==users.size()+1){
+			}else if(selected==users.size()+2){
 				deleteUser();
 				return selectUser();
+			}else if(selected==users.size()+1){
+				return addUser();
 			}else{
 				System.out.println("Invalid option.Try again");
-				return selectUser();
 			}
 		}
 		return addUser();
@@ -77,7 +78,7 @@ public class UserManageCLI implements UserManagement {
 	@Override
 	public void saveUser(User player) {
 		userdao.updateUser(player);
-		System.out.println("Goodbye! Your game is saved");
+		System.out.println("Goodbye!");
 	}
 
 }

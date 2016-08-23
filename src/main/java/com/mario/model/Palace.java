@@ -9,17 +9,22 @@ public class Palace extends GeoMap {
 	Integer currentRoomY;
 
 	public Palace() {
-		currentRoomX = (int) (Math.random() * 10);
-		currentRoomY = (int) (Math.random() * 10);
-		int monsters = (int) (Math.random() * 20 + 10);
+		// init rooms
 		for (int i = 0; i < rooms.length; i++) {
 			for (int j = 0; j < rooms[i].length; j++) {
 				rooms[i][j] = new Room();
 			}
 		}
+		//select a room for user randomly
+		currentRoomX = (int) (Math.random() * 10);
+		currentRoomY = (int) (Math.random() * 10);
+		
+		
+		int monsters = (int) (Math.random() * 10 + 20); //20 - 30 monsters are placed in palace 
 		for (int i = 0; i < monsters; i++) {
 			rooms[(int) (Math.random() * 10)][(int) (Math.random() * 10)].setOccupiedBy(GameCharacter.MONSTER);
 		}
+		//select a room for princess which is different from user's room
 		int princessX = (int) (Math.random() * 10);
 		int princessY = (int) (Math.random() * 10);
 		if (princessX == currentRoomX && princessY == currentRoomY) {
@@ -27,7 +32,7 @@ public class Palace extends GeoMap {
 			princessY = (int) (Math.random() * 10);
 		}
 		rooms[princessX][princessY].setOccupiedBy(GameCharacter.PRINCESS);
-		//at least two monsters are very near to princess
+		//at least four monsters are very near to princess
 		rooms[princessX][princessY==0?princessY+1:princessY-1].setOccupiedBy(GameCharacter.MONSTER);
 		rooms[princessX==0?princessX+1:princessX-1][princessY].setOccupiedBy(GameCharacter.MONSTER);
 	}

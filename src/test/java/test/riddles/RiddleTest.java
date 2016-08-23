@@ -1,7 +1,10 @@
-package test;
+package test.riddles;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -9,11 +12,16 @@ import com.mario.persistence.impl.RiddleDaoImpl;
 import com.mario.utils.HSQLDBConnection;
 
 public class RiddleTest {
-	static HSQLDBConnection db;
+	static Connection db;
 	@BeforeClass
 	public static void setupDB(){
-		db = new HSQLDBConnection();
+		db = HSQLDBConnection.getConnection();
 
+	}
+	
+	@AfterClass
+	public static void destroy(){
+		HSQLDBConnection.closeConnection();
 	}
 
 	@Test

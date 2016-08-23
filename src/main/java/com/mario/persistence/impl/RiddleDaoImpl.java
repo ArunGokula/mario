@@ -1,24 +1,24 @@
 package com.mario.persistence.impl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.mario.persistence.RiddleDao;
-import com.mario.utils.HSQLDBConnection;
 
 public class RiddleDaoImpl implements RiddleDao {
 
-	HSQLDBConnection db;
+	Connection dbConnection;
 
-	public RiddleDaoImpl(HSQLDBConnection db) {
-		this.db = db;
+	public RiddleDaoImpl(Connection db) {
+		this.dbConnection = db;
 	}
 
 	@Override
 	public String getRiddle(int level) {
 		try {
 			String getRiddlesql = "select question from riddles where difficulty=?";
-			PreparedStatement stmt = db.getConnection().prepareStatement(getRiddlesql);
+			PreparedStatement stmt = dbConnection.prepareStatement(getRiddlesql);
 			stmt.setInt(1, level);
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
@@ -38,7 +38,7 @@ public class RiddleDaoImpl implements RiddleDao {
 	private String getAnswer(int level) {
 		try {
 			String getRiddlesql = "select answer from riddles where difficulty=?";
-			PreparedStatement stmt = db.getConnection().prepareStatement(getRiddlesql);
+			PreparedStatement stmt = dbConnection.prepareStatement(getRiddlesql);
 			stmt.setInt(1, level);
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
