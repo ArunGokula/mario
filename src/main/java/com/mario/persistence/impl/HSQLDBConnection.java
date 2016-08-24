@@ -44,7 +44,7 @@ public class HSQLDBConnection {
 		hsqlServer.setLogWriter(null);
 		hsqlServer.setSilent(true);
 		hsqlServer.setDatabaseName(0, "mario");
-		hsqlServer.setDatabasePath(0, "file:~/mariodb");
+		hsqlServer.setDatabasePath(0, "file:~/mariodata/mariodb");
 		hsqlServer.start();
 	}
 
