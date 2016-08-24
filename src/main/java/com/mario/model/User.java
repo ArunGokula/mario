@@ -38,6 +38,7 @@ public class User {
 
 	public boolean explore() {
 		map.print();
+		ui.printInstructions();
 		String cmd = ui.readUserInputString();
 		if (cmd.equalsIgnoreCase("QUIT") || cmd.equalsIgnoreCase("Q")) {
 			return true;

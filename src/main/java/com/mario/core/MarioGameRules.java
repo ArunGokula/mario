@@ -7,43 +7,47 @@ import com.mario.model.GameCharacter;
 import com.mario.model.User;
 import com.mario.persistence.RiddleDao;
 import com.mario.persistence.impl.RiddleDaoImpl;
+import com.mario.service.UIservice;
+import com.mario.utils.Commands;
 
 public class MarioGameRules implements GameRules {
 
 	RiddleDao riddlesDao;
+	UIservice ui;
 
-	public MarioGameRules(Connection db) {
+	public MarioGameRules(Connection db, UIservice ui) {
 		riddlesDao = new RiddleDaoImpl(db);
+		this.ui = ui;
 	}
 
 	@Override
 	public boolean apply(User player) {
 		if (player.getMap().getCurrentRoom().getOccupiedBy() == GameCharacter.PRINCESS) {
-			System.out.println("Princess is in this room.You won!!");
+			ui.displayWinMessage();
 			return true;
 		} else if (player.getMap().getCurrentRoom().getOccupiedBy() == GameCharacter.MONSTER) {
-			System.out.println("There is monster in this room");
-			printHelp();
+			ui.displayMonster();
+
 			System.out.println();
 			System.out.println(riddlesDao.getRiddle(player.getLevel()));
 			String userAnswer = "";
 			do {
-				System.out.print("\nType your Answer/Command:");
-				System.out.flush();
-				Scanner scan = new Scanner(System.in);
-				userAnswer = scan.nextLine();
-				if (userAnswer.equalsIgnoreCase("#giveup")) {
+				ui.displayAnswerPrompt();
+				userAnswer = ui.readUserInputString();
+				if (userAnswer.equalsIgnoreCase(Commands.GIVEUP)) {
 					double healthLost = fightMonster();
 					player.modifyHealth((int) healthLost);
 					player.IncLevel();
-					if(player.getHealth()==0){
-						System.out.println("You died.You lost the game");
+					if (player.getHealth() == 0) {
+						ui.displayLooseMessage();
 						return true;
 					}
 					break;
-				} else if (userAnswer.equalsIgnoreCase("#pay")) {
+				} else if (userAnswer.equalsIgnoreCase(Commands.HELP)) {
+					ui.printHelp();
+				} else if (userAnswer.equalsIgnoreCase(Commands.HELP)) {
 					if (player.getGems() == 0) {
-						System.out.println("You have no Gems.You can fight by typing #giveup if you cannot answer");
+						ui.displayNoGemsMessage();
 					} else {
 						player.modifyGems(-1);
 						System.out.println(riddlesDao.getRiddleHint(player.getLevel()));
@@ -51,10 +55,10 @@ public class MarioGameRules implements GameRules {
 				} else if (riddlesDao.checkRiddleAnswer(userAnswer, player.getLevel())) {
 					player.IncLevel();
 					player.modifyGems(1);
-					System.out.println("Correct Answer! Monster gave you one gem");
+					ui.displayCorrectAnswerMessage();
 					break;
 				} else {
-					System.out.println("Wrong Answer! Try again");
+					ui.displayInCorrectAnswerMessage();
 				}
 			} while (true);
 			System.out.println(player);
@@ -65,11 +69,6 @@ public class MarioGameRules implements GameRules {
 	private double fightMonster() {
 		System.out.println("Fighting Monster...");
 		return Math.random() * 25 - 40;
-	}
-
-	public void printHelp() {
-		System.out.println("You have to answer monster riddle.\n" + "If you answer correctly you will get gems.\n"
-				+ "It will give you hints if you pay gems by typing '#pay' \n" + "You can type '#giveup' to fight the monster\n");
 	}
 
 }

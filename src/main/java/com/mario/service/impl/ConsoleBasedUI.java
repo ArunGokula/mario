@@ -104,4 +104,45 @@ public class ConsoleBasedUI implements UIservice {
 	public void exitMessage() {
 		System.out.println("Goodbye!");
 	}
+
+	@Override
+	public void displayWinMessage() {
+		System.out.println("Princess is in this room.You won!!");
+	}
+
+	@Override
+	public void displayAnswerPrompt() {
+		System.out.print("\nEnter #help for available commands.Type your Answer/Command:");
+		System.out.flush();
+	}
+
+	@Override
+	public void displayMonster() {
+		System.out.println("There is monster in this room.Answer the following riddle to impress it");
+	}
+
+	@Override
+	public void displayLooseMessage() {
+		System.out.println("You died.You lost the game");
+	}
+
+	@Override
+	public void displayNoGemsMessage() {
+		System.out.println("You have no Gems.You can fight by typing #giveup if you cannot answer");
+	}
+
+	@Override
+	public void displayCorrectAnswerMessage() {
+		System.out.println("Correct Answer! Monster gave you one gem");
+	}
+
+	@Override
+	public void displayInCorrectAnswerMessage() {
+		System.out.println("Wrong Answer! Try again");
+	}
+	@Override
+	public void printHelp() {
+		System.out.println("You have to answer monster riddle.\n" + "If you answer correctly you will get gems.\n"
+				+ "It will give you hints if you pay gems by typing '#pay' \n" + "You can type '#giveup' to fight the monster\n");
+	}
 }
