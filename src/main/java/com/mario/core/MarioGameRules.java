@@ -45,7 +45,7 @@ public class MarioGameRules implements GameRules {
 					break;
 				} else if (userAnswer.equalsIgnoreCase(Commands.HELP)) {
 					ui.printHelp();
-				} else if (userAnswer.equalsIgnoreCase(Commands.HELP)) {
+				} else if (userAnswer.equalsIgnoreCase(Commands.PAY)) {
 					if (player.getGems() == 0) {
 						ui.displayNoGemsMessage();
 					} else {

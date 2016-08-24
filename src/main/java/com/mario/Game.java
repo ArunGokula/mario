@@ -34,6 +34,7 @@ public class Game {
 			}
 			if (gotResult) {
 				player.setMap(new Palace());
+				player.modifyHealth(100-player.getHealth());
 				ui.displayFinishedGameMessage();
 			} else {
 				ui.displayUnFinishedGameMessage();
