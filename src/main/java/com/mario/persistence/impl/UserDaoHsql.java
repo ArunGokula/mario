@@ -15,6 +15,7 @@ import java.util.List;
 import com.mario.model.Palace;
 import com.mario.model.User;
 import com.mario.persistence.UserDao;
+import com.mario.service.impl.ConsoleBasedUI;
 
 public class UserDaoHsql implements UserDao {
 	Connection dbConnection;

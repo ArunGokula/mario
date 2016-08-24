@@ -7,8 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mario.model.User;
+import com.mario.persistence.impl.HSQLDBConnection;
 import com.mario.persistence.impl.UserDaoHsql;
-import com.mario.utils.HSQLDBConnection;
 
 public class UserManagementTest {
 	static Connection db;

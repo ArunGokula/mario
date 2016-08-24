@@ -1,7 +1,7 @@
 package com.mario.model;
 
-import java.util.Scanner;
-
+import com.mario.service.UIservice;
+import com.mario.service.impl.ConsoleBasedUI;
 import com.mario.utils.Constants;
 
 public class User {
@@ -11,6 +11,7 @@ public class User {
 	Integer level;
 	Integer gems;
 	Integer health;
+	UIservice ui;
 
 	@Override
 	public String toString() {
@@ -32,12 +33,12 @@ public class User {
 		this.level = 1;
 		this.gems = 0;
 		this.health=100;
+		this.map = new Palace();
 	}
 
 	public boolean explore() {
 		map.print();
-		Scanner scan = new Scanner(System.in);
-		String cmd = scan.nextLine();
+		String cmd = ui.readUserInputString();
 		if (cmd.equalsIgnoreCase("QUIT") || cmd.equalsIgnoreCase("Q")) {
 			return true;
 		} else {
@@ -59,7 +60,7 @@ public class User {
 					moveEast();
 					break;
 				default:
-					displayError();
+					ui.displayExploreError();
 			}
 		}
 
@@ -69,7 +70,7 @@ public class User {
 
 	private void moveNorth() {
 		if (map.getCurrentRoomX() == 0) {
-			hitWallMessage();
+			ui.hitWallMessage();
 		} else {
 			map.IncOrDecCurrentRoomX(-1);
 		}
@@ -78,7 +79,7 @@ public class User {
 
 	private void moveSouth() {
 		if (map.getCurrentRoomX() == Constants.rows - 1) {
-			hitWallMessage();
+			ui.hitWallMessage();
 		} else {
 			map.IncOrDecCurrentRoomX(1);
 		}
@@ -87,7 +88,7 @@ public class User {
 
 	private void moveWest() {
 		if (map.getCurrentRoomY() == 0) {
-			hitWallMessage();
+			ui.hitWallMessage();
 		} else {
 			map.IncOrDecCurrentRoomY(-1);
 		}
@@ -96,19 +97,13 @@ public class User {
 
 	private void moveEast() {
 		if (map.getCurrentRoomY() == Constants.columns - 1) {
-			hitWallMessage();
+			ui.hitWallMessage();
 		} else {
 			map.IncOrDecCurrentRoomY(1);
 		}
 	}
 
-	private void hitWallMessage() {
-		System.out.println("Ouch!I hit a wall.Choose Different direction");
-	}
-
-	private void displayError() {
-		System.err.println("Invalid input.Only N/E/W/S/Q are allowed");
-	}
+	
 	
 	public void modifyHealth(int delta) {
 		health += delta;
@@ -146,6 +141,10 @@ public class User {
 
 	public Integer getHealth() {
 		return health;
+	}
+
+	public void setUI(UIservice ui) {
+		this.ui=ui;
 	}
 
 }

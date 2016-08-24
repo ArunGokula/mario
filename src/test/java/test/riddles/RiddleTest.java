@@ -8,8 +8,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mario.persistence.impl.HSQLDBConnection;
 import com.mario.persistence.impl.RiddleDaoImpl;
-import com.mario.utils.HSQLDBConnection;
 
 public class RiddleTest {
 	static Connection db;
